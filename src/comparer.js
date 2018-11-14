@@ -1,25 +1,44 @@
-import looksSame from 'looks-same';
 import { promisify } from 'util';
+import resemble from 'resemblejs';
 import logger from './logger';
 
-const looksSameAsync = promisify(looksSame);
+const comparejsAsync = promisify(resemble.compare);
+
+const options = {
+  output: {
+    errorColor: {
+      red: 255,
+      green: 0,
+      blue: 255
+    },
+    errorType: 'movement',
+    transparency: 0.3,
+    largeImageThreshold: 1200,
+    useCrossOrigin: false,
+    outputDiff: true
+  },
+  scaleToSameSize: true,
+  ignore: 'antialiasing'
+};
 
 const isEqual = imageData =>
-  looksSameAsync(imageData.baseline, imageData.latest, {
-    tolerance: imageData.tolerance,
-    ignoreCaret: true,
-    ignoreAntialiasing: true
-  })
-    .then(equal => {
-      if (equal) {
+  comparejsAsync(imageData.baseline, imageData.latest, options)
+    .then(data => {
+      let retVal = false;
+      var rawThreshold = 0;
+      if (imageData.tolerance != undefined) {
+        rawThreshold = imageData.tolerance;
+      }
+      if (data.rawMisMatchPercentage <= rawThreshold) {
         logger.info('comparer', `✅ Passed: ${imageData.label}`);
+        retVal = true;
       } else {
         logger.info('comparer', `☠️ Failed: ${imageData.label}`);
       }
-      return equal;
+      return retVal;
     })
-    .catch(error => {
-      logger.error('comparer', error);
+    .catch(err => {
+      logger.error('comparer', err);
     });
 
 export default isEqual;
