@@ -1,10 +1,7 @@
 import webdriver, { By, until } from 'selenium-webdriver';
-import pLimit from 'p-limit';
 import scenarioValidator from './scenarioValidator';
 
-const limit = pLimit(5);
-
-export default (SnapShotter, config) =>
+export default (SnapShotter, config, limit) =>
   Promise.all(
     config.scenarios.map(scenario => {
       return limit(() => snapShoot(scenario, SnapShotter, config));
@@ -23,6 +20,7 @@ function snapShoot(scenario, SnapShotter, config) {
           browser: config.browser,
           mobileDeviceName: scenario.mobileDeviceName,
           gridUrl: config.gridUrl,
+          gridLimit: config.gridLimit,
           height: viewport.height,
           width: viewport.width,
           viewportLabel: viewport.label,

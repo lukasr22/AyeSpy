@@ -3,6 +3,7 @@ import logger from './logger';
 const mandatoryLocalFields = [
   'gridUrl',
   'baseline',
+  'gridLimit',
   'latest',
   'generatedDiffs',
   'report',
