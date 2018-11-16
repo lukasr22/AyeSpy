@@ -15,8 +15,7 @@ describe('The Config Validator', () => {
 
   it('local config returns false for invalid configs', () => {
     const config = {
-      gridUrl: 'http://selenium.com:4444/wd/hub',
-      gridLimit: 10
+      gridUrl: 'http://selenium.com:4444/wd/hub'
     };
 
     expect(isLocalConfigValid(config)).toBe(false);
@@ -29,7 +28,6 @@ describe('The Config Validator', () => {
   it('local config returns true for valid configs', () => {
     const config = {
       gridUrl: 'http://selenium.com:4444/wd/hub',
-      gridLimit: 5,
       baseline: './e2eTests/generateHtmlReport/baseline',
       latest: './e2eTests/generateHtmlReport/latest',
       generatedDiffs: './e2eTests/generateHtmlReport/generatedDiffs',
@@ -65,7 +63,6 @@ describe('The Config Validator', () => {
   it('exits if the config is invalid', () => {
     const invalidConfig = {
       gridUrl: 'http://selenium.com:4444/wd/hub',
-      gridLimit: 5,
       baseline: './e2eTests/generateHtmlReport/baseline',
       latest: './e2eTests/generateHtmlReport/latest',
       generatedDiffs: './e2eTests/generateHtmlReport/generatedDiffs',
@@ -88,7 +85,6 @@ describe('The Config Validator', () => {
       remoteBucketName: 'test',
       remoteRegion: 'test',
       gridUrl: 'http://selenium.com:4444/wd/hub',
-      gridLimit: 5,
       baseline: './e2eTests/generateHtmlReport/baseline',
       latest: './e2eTests/generateHtmlReport/latest',
       generatedDiffs: './e2eTests/generateHtmlReport/generatedDiffs',

@@ -20,7 +20,6 @@ function snapShoot(scenario, SnapShotter, config) {
           browser: config.browser,
           mobileDeviceName: scenario.mobileDeviceName,
           gridUrl: config.gridUrl,
-          gridLimit: config.gridLimit,
           height: viewport.height,
           width: viewport.width,
           viewportLabel: viewport.label,
