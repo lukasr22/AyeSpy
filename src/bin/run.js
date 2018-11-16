@@ -3,6 +3,7 @@
 import program from 'commander';
 import path from 'path';
 import fs from 'fs';
+import pLimit from 'p-limit';
 import logger, { setupLogger } from '../logger';
 import SnapShotter from '../snapshotter';
 import getScreenshots from '../getScreenshots';
@@ -41,11 +42,17 @@ program
   .option('c, --config [config]', 'Path to your config')
   .option('--run [optional]', 'Filter scenarios based on label name')
   .option('r, --remote', 'Upload new baseline to remote storage')
+  .option('-gl, --gridLimit [gridLimit]', 'Grid limit specification')
   .action(async options => {
     try {
       const config = require(path.resolve(options.config)); // eslint-disable-line import/no-dynamic-require
 
       if (options.browser) config.browser = options.browser;
+
+      if (options.gridLimit) config.gridLimit = options.gridLimit;
+      else config.gridLimit = 5;
+
+      const limit = pLimit(config.gridLimit);
 
       validateConfig(config, options.remote);
 
@@ -54,7 +61,7 @@ program
       logger.info('run', 'Getting snapshots... 📸 ');
       await createDirectories(fs, config);
       await createBucket(config);
-      await getScreenshots(SnapShotter, config);
+      await getScreenshots(SnapShotter, config, limit);
       if (options.remote) await uploadRemoteKeys('latest', config);
     } catch (err) {
       handleError(err);
