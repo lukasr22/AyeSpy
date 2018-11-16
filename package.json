@@ -27,7 +27,7 @@
   "bin": {
     "ayespy": "lib/bin/run.js"
   },
-  "repository": "git+https://github.com/newsuk/AyeSpy",
+  "repository": "git+https://github.com/lukasr22/AyeSpy",
   "keywords": [
     "visual-regression",
     "testing",
@@ -36,9 +36,9 @@
   "author": "newsuk",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/newsuk/AyeSpy/issues"
+    "url": "https://github.com/lukasr22/AyeSpy/issues"
   },
-  "homepage": "https://github.com/newsuk/AyeSpy#readme",
+  "homepage": "https://github.com/lukasr22/AyeSpy#readme",
   "dependencies": {
     "aws-sdk": "^2.252.1",
     "commander": "^2.15.1",
