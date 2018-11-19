@@ -1,6 +1,6 @@
 {
   "name": "aye-spy",
-  "version": "1.13.0",
+  "version": "1.13.001",
   "description": "A visual regression tool",
   "main": "lib/bin/run.js",
   "scripts": {
@@ -12,7 +12,8 @@
     "lint-staged": "lint-staged",
     "build": "babel src --out-dir lib",
     "prepare": "yarn build",
-    "pre-commit": "yarn lint"
+    "pre-commit": "yarn lint",
+    "preinstall": "npm run build"
   },
   "lint-staged": {
     "src/**/*.js": [
